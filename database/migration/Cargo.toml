@@ -1,0 +1,20 @@
+[package]
+name = "migration"
+version = "0.1.0"
+edition = "2021"
+
+
+[[bin]]
+name = "database-migration"
+path = "src/main.rs"
+
+[lib]
+name = "migration_lib"
+path = "src/lib.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+async-std.workspace = true
+sea-orm.workspace = true
+sea-orm-migration.workspace = true

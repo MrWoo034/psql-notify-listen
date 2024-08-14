@@ -1,0 +1,26 @@
+[workspace]
+members = ["database/migration", "database/manager", "listener", "notifier", "database/entities"]
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[workspace.dependencies]
+async-std = { version = "1.12.0", features = ["attributes", "tokio1"] }
+async-trait = "0.1"
+dotenvy = "0.15.7"
+futures = "0.3"
+log = "0.4.22"
+sea-orm = { version = "1.0.0", features = [
+    "sqlx-postgres",
+    "runtime-tokio-rustls",
+    "macros",
+] }
+sea-orm-migration = { version = "1.0.0", features = [
+    "sqlx-postgres",
+    "runtime-tokio-rustls",
+] }
+serde = { version = "1.0.111", features = ["derive"] }
+serde_bytes = "0.11.7"
+serde_json = "1.0.87"
+thiserror = "1.0.37"
+tokio = { version = "1.37.0", features = ["rt", "macros", "rt-multi-thread"] }
