@@ -1,8 +1,11 @@
-use migration_lib::MigratorTrait;
-use sea_orm::{ConnectOptions, ConnectionTrait, Database, DatabaseConnection, DbBackend, DbErr, Statement, ActiveValue, EntityTrait};
-use std::time::Duration;
-use entities::widget_table::ActiveModel as WidgetActive;
 use entities::received_count_table::ActiveModel as ReceivedActive;
+use entities::widget_table::ActiveModel as WidgetActive;
+use migration_lib::MigratorTrait;
+use sea_orm::{
+    ActiveValue, ConnectOptions, ConnectionTrait, Database, DatabaseConnection, DbBackend, DbErr,
+    EntityTrait, Statement,
+};
+use std::time::Duration;
 
 #[derive(Debug, Clone)]
 pub struct DatabaseConfig {
@@ -126,12 +129,12 @@ impl Manager {
                     db.get_database_backend(),
                     format!("DROP DATABASE IF EXISTS \"{}\";", database),
                 ))
-                    .await?;
+                .await?;
                 db.execute(Statement::from_string(
                     db.get_database_backend(),
                     format!("CREATE DATABASE \"{}\";", database),
                 ))
-                    .await?;
+                .await?;
 
                 let url = format!("{}/{}", database_url, database);
                 Database::connect(&url).await
@@ -146,7 +149,9 @@ impl Manager {
         let widget = WidgetActive {
             id: ActiveValue::NotSet,
         };
-        entities::widget_table::Entity::insert(widget).exec(&self.connection).await?;
+        entities::widget_table::Entity::insert(widget)
+            .exec(&self.connection)
+            .await?;
         Ok(())
     }
 
@@ -156,7 +161,9 @@ impl Manager {
             widget_id: ActiveValue::Set(widget_id),
             timestamp: ActiveValue::Set(chrono::offset::Utc::now().naive_utc()),
         };
-        entities::received_count_table::Entity::insert(row).exec(&self.connection).await?;
+        entities::received_count_table::Entity::insert(row)
+            .exec(&self.connection)
+            .await?;
         Ok(())
     }
 }

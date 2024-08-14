@@ -1,7 +1,7 @@
-use std::time::Duration;
+use log::error;
 use manager::{DatabaseConfig, Manager};
 use rand::random;
-use log::error;
+use std::time::Duration;
 
 #[tokio::main]
 async fn main() {

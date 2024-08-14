@@ -8,8 +8,7 @@ struct TriggerFunction;
 
 impl StatementBuilder for TriggerFunction {
     fn build(&self, db_backend: &DbBackend) -> Statement {
-        let trigger_function =
-            "CREATE OR REPLACE FUNCTION insert_and_notify()
+        let trigger_function = "CREATE OR REPLACE FUNCTION insert_and_notify()
                 RETURNS TRIGGER
                 LANGUAGE PLPGSQL
             AS $$
@@ -29,8 +28,7 @@ struct Trigger;
 
 impl StatementBuilder for Trigger {
     fn build(&self, db_backend: &DbBackend) -> Statement {
-        let trigger_sql =
-            "CREATE TRIGGER notified_count_insert_trigger
+        let trigger_sql = "CREATE TRIGGER notified_count_insert_trigger
             AFTER INSERT ON widget_table
             FOR EACH ROW
             EXECUTE FUNCTION insert_and_notify();";
@@ -115,10 +113,10 @@ impl MigrationTrait for Migration {
                             .primary_key(),
                     )
                     .col(
-                    ColumnDef::new(ReceivedCountTable::WidgetId)
-                        .big_integer()
-                        .not_null(),
-                )
+                        ColumnDef::new(ReceivedCountTable::WidgetId)
+                            .big_integer()
+                            .not_null(),
+                    )
                     .foreign_key(
                         ForeignKey::create()
                             .name(FK_WIDGET_TO_RECEIVED)
